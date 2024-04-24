@@ -1,13 +1,10 @@
 <?php
-// Inclua o arquivo de configuração do banco de dados
+
 include_once('config.php');
 
-// Consulta SQL para selecionar todos os clientes
 $query = "SELECT * FROM cliente";
 
-// Executa a consulta
 $result = mysqli_query($conexao, $query);
-// Verifica se a consulta retornou resultados
 if(mysqli_num_rows($result) > 0) {
     echo "<style>
             body {
@@ -84,11 +81,9 @@ if(mysqli_num_rows($result) > 0) {
         echo "<h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Agendamentos</h2>";
 
     echo "<div class='table-container'>";
-    // Iniciar a tabela
     echo "<table class='styled-table'>";
     echo "<thead><tr><th>Nome</th><th>Serviço</th><th>Dia</th><th>Horário</th><th>Ações</th></tr></thead>";
     echo "<tbody>";
-    // Loop através dos resultados e exibe cada agendamento
     $count = 0;
     while($row = mysqli_fetch_assoc($result)) {
         $count++;
@@ -98,10 +93,9 @@ if(mysqli_num_rows($result) > 0) {
         echo "<td>".$row['Servico']."</td>";
         echo "<td>".date('d/m/Y', strtotime($row['Dia']))."</td>";
         echo "<td>".$row['Horario']."</td>";
-        echo "<td><a class='edit-btn' href='editar.php?id=".$row['id']."'>Editar</a><a class='delete-btn' href='excluir.php?id=".$row['id']."'>Cancelar</a></td>";
+        echo "<td><a class='edit-btn' href='senha_edit.php?id=".$row['id']."'>Editar</a><a class='delete-btn' href='senha_cancelar.php?id=".$row['id']."'>Cancelar</a></td>";
         echo "</tr>";
     }
-    // Fechar a tabela
     echo "</tbody>";
     echo "</table>";
     
@@ -111,6 +105,5 @@ if(mysqli_num_rows($result) > 0) {
 } else {
     echo "<p>Nenhum agendamento encontrado.</p>";
 }
-// Fecha a conexão com o banco de dados
 mysqli_close($conexao);
 ?>
