@@ -15,10 +15,10 @@
             font-family: 'Great Vibes', cursive;
             background-color: #228B22;
             background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
-            background-size: cover; /* Ajusta a imagem para cobrir todo o fundo */
-            background-position: center; /* Centraliza a imagem */
-            padding-top: 0; /* Adicionando espaço acima do cabeçalho */
-            padding-bottom: 20px; /* Adicionando espaço abaixo do conteúdo */
+            background-size: cover;
+            background-position: center; 
+            padding-top: 0; 
+            padding-bottom: 20px;
         }
 
         .cabeçario {
@@ -53,51 +53,51 @@
         }
 
         nav ul li a:hover {
-            background-color: #004d00; /* Tonalidade mais escura de verde ao passar o mouse */
+            background-color: #004d00;
         }
 
         h2 {
-            margin: 20px 0; /* Adicionando espaço acima e abaixo dos títulos */
+            margin: 20px 0; 
             color: #ffffff;
-            text-align: center; /* Centralizando os títulos */
+            text-align: center; 
         }
 
         .botao {
-            background-color: #006400; /* Verde escuro */
+            background-color: #006400;
             border: none;
             color: white;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: block;
-            width: 100%; /* Botões ocupam toda a largura disponível */
+            width: 100%; 
             font-size: 16px;
-            margin-bottom: 10px; /* Espaçamento entre os botões */
+            margin-bottom: 10px; 
             cursor: pointer;
-            border-radius: 20px; /* Bordas arredondadas nos botões */
+            border-radius: 20px; 
             transition: background-color 0.3s;
         }
 
         .botao:hover {
-            background-color: #004d00; /* Tonalidade mais escura de verde ao passar o mouse */
+            background-color: #004d00; 
         }
 
         .album {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid responsivo */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
             grid-gap: 20px;
             padding: 20px 0;
         }
         .album-item {
-        display: flex; /* Define o contêiner .album-item como um flex container */
-        justify-content: center; /* Centraliza as imagens horizontalmente */
+        display: flex; 
+        justify-content: center;
         }
 
         .album-item img {
             
             width: 80%;
             height: auto;
-            border-radius: 20px; /* Bordas arredondadas nas imagens */
+            border-radius: 20px;
             transition: transform 0.3s ease;
         }
 
@@ -109,13 +109,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 50px; /* Espaço entre as imagens */
+        gap: 50px;
         }
 
         .image {
             width: 80%;
             height: auto;
-            border-radius: 20px; /* Bordas arredondadas nas imagens */
+            border-radius: 20px;
             transition: transform 0.3s ease;
         }
         .image:hover {
@@ -141,8 +141,7 @@
     </header>
     <br>
         <h2>Catálago</h2><br>
-        <!-- Botão para redirecionar para o título -->
-        
+               
         <button class="botao" onclick="window.location.href='#Cabeleireiro'">Cabeleireiro</button>
         <button class="botao" onclick="window.location.href='#Barbeiro'">Barbeiro</button>
         <button class="botao" onclick="window.location.href='#Manicure'">Manicure</button>
