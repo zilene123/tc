@@ -1,31 +1,32 @@
 <?php
-// Verificar se o formulário foi enviado
+
 if(isset($_POST['submit'])) {
-    // Incluir o arquivo de configuração do banco de dados
+    
     include_once('config.php');
 
-    // Obter os dados do formulário
+    
     $Nome = $_POST['Nome'];
     $Telefone = $_POST['Telefone'];
     $Servico = $_POST['Servico'];
     $Dia = $_POST['Dia'];
     $Horario = $_POST['Horario'];
+    $Senha = $_POST['Senha']; 
 
-    // Verificar se já existe um agendamento para o mesmo serviço e horário
+   
     $check_query = "SELECT * FROM cliente WHERE Servico='$Servico' AND Dia='$Dia' AND Horario='$Horario'";
     $check_result = mysqli_query($conexao, $check_query);
 
     if(mysqli_num_rows($check_result) > 0) {
-        // Se já existir um agendamento, exibir uma mensagem de erro
+       
         echo "<script>alert('Este horário já está agendado para o serviço selecionado. Por favor, escolha outro horário.');</script>";
     } else {
-        // Se não houver conflito de horário, inserir o novo agendamento
-        $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario')";
+       
+        $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha')";
         if(mysqli_query($conexao, $insert_query)) {
-            // Redirecionar após o envio bem-sucedido do formulário
+           
             echo "<script>window.location.href = 'most.php';</script>";
         } else {
-            // Se houver algum erro durante a inserção, exibir uma mensagem de erro
+           
             echo "<script>alert('Ocorreu um erro ao agendar o horário. Por favor, tente novamente.');</script>";
         }
     }
@@ -56,11 +57,11 @@ if(isset($_POST['submit'])) {
             font-family: 'Great Vibes', cursive;
             background-color: #228B22;
             background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
-            background-size: cover; /* Ajusta a imagem para cobrir todo o fundo */
-            background-position: center; /* Centraliza a imagem */
-            background-repeat: no-repeat; /* Evita que a imagem se repita */
-            padding-top: 0; /* Adicionando espaço acima do cabeçalho */
-            padding-bottom: 20px; /* Adicionando espaço abaixo do conteúdo */
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            padding-top: 0;
+            padding-bottom: 20px; 
         }
 
 
@@ -95,7 +96,7 @@ if(isset($_POST['submit'])) {
         }
         
         nav ul li a:hover {
-            background-color: #004d00; /* Tonalidade mais escura de verde ao passar o mouse */
+            background-color: #004d00;
         }
         /* Inicio da tabela */
         .box {
@@ -191,6 +192,28 @@ if(isset($_POST['submit'])) {
         .btn:hover {
             background-image: linear-gradient(to right, rgb(0, 60, 0), rgb(0, 100, 0));
         }
+        .password-toggle-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .password-toggle-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px; 
+            height: 20px; 
+            fill: #fff; 
+            transition: transform 0.3s ease; 
+        }
+        .password-toggle-icon:hover {
+            transform: translateY(-50%) scale(1.2); 
+        }
+
     </style>
 </head>
 <body>
@@ -238,6 +261,27 @@ if(isset($_POST['submit'])) {
                 <br><br></br>
                 <label for="Horario">Horário:</label>
                 <input type="time" id="Horario" name="Horario" required>
+                <br></br>
+                <div class="inputBox">
+                    <input type="password" name="Senha" id="Senha" class="inputUser" required>
+                    <label for="Senha" class="labelInput">Senha</label>
+                    
+                    <img src="https://cdn-icons-png.flaticon.com/512/13/13523.png" class="password-toggle-icon" onclick="togglePasswordVisibility()" alt="Mostrar Senha">
+                </div>
+                <script>
+                    function togglePasswordVisibility() {
+                        var passwordInput = document.getElementById("Senha");
+                        var passwordIcon = document.querySelector(".password-toggle-icon");
+
+                        if (passwordInput.type === "password") {
+                            passwordInput.type = "text";
+                            passwordIcon.src = "https://cdn-icons-png.flaticon.com/512/125/125771.png"; // Altere o ícone para "olho fechado"
+                        } else {
+                            passwordInput.type = "password";
+                            passwordIcon.src = "https://cdn-icons-png.flaticon.com/512/13/13523.png"; // Altere o ícone para "olho aberto"
+                        }
+                    }
+                </script>
                 <br></br>
                 <input type="submit" name="submit" id="submit">
                 <a href="most.php" class="btn">Ver horários agendados...</a>
