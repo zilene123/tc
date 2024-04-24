@@ -16,10 +16,10 @@
         font-family: 'Great Vibes', cursive;
         background-color: #228B22;
         background-image: url('https://i.pinimg.com/564x/45/23/05/4523054413af343e7f882148d945c5c9.jpg');
-        background-size: cover; /* Ajusta a imagem para cobrir todo o fundo */
-        background-position: center; /* Centraliza a imagem */
-        padding-top: 0; /* Adicionando espaço acima do cabeçalho */
-        padding-bottom: 20px; /* Adicionando espaço abaixo do conteúdo */
+        background-size: cover;
+        background-position: center; 
+        padding-top: 0; 
+        padding-bottom: 20px;
     }
     .abeçario {
     max-width: 1200px;
@@ -31,7 +31,7 @@
     margin: 10px auto;
     padding: 10px 20px;
     background-color:#fff;
-    border-radius: 20px; /* Bordas arredondadas nos botões */
+    border-radius: 20px;
             
     }
     header {
@@ -60,7 +60,7 @@
     }
     
     nav ul li a:hover {
-            background-color: #004d00; /* Tonalidade mais escura de verde ao passar o mouse */
+            background-color: #004d00;
         }
     fieldset {
         margin: 10px;
