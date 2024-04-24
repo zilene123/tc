@@ -50,13 +50,13 @@
     }
 
     nav ul li a:hover {
-        background-color: #004d00; /* Tonalidade mais escura de verde ao passar o mouse */
+        background-color: #004d00;
     }
-        nav ul li a:hover {
-                background-color: #004d00; /* Tonalidade mais escura de verde ao passar o mouse */
-            }
+    nav ul li a:hover {
+        background-color: #004d00;
+    }
     #banner {
-        background-image: url('Espaço do galego.png');
+        background-image: url('imagens/Espaço do galego.png');
         background-size: cover;
         color: #fff;
         padding: 100px 0;
@@ -131,8 +131,6 @@
             <p>Temos varios serviços! Para lhe atender, convido você a adentrar no site.</p>
         </div>
     </section>
-
-    <!-- Outras seções do site -->
 
     <footer>
         <div class="container">
