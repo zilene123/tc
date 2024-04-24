@@ -6,7 +6,6 @@ if(isset($_GET['id'])) {
     $query = "DELETE FROM cliente WHERE id=$id";
     mysqli_query($conexao, $query);
 
-    // Redirecionamento após a exclusão do agendamento
     header("Location: most.php");
 }
 ?>
