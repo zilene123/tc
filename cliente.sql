@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/04/2024 às 01:47
+-- Tempo de geração: 29/04/2024 às 16:30
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -33,19 +33,17 @@ CREATE TABLE `cliente` (
   `Telefone` varchar(20) NOT NULL,
   `Servico` enum('Barbeiro','Cabeleireiro','Manicure','Spa') NOT NULL,
   `Dia` date NOT NULL,
-  `Horario` time NOT NULL
+  `Horario` time NOT NULL,
+  `Senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `cliente`
 --
 
-INSERT INTO `cliente` (`id`, `Nome`, `Telefone`, `Servico`, `Dia`, `Horario`) VALUES
-(72, 'Libna Santos', '84996322526', 'Manicure', '2024-05-08', '13:30:00'),
-(76, 'Claudio Pontes', '8456952330', 'Spa', '2024-04-23', '15:00:00'),
-(78, 'Daniela Martis', '84996355659', 'Manicure', '2024-04-23', '14:30:00'),
-(87, 'Ricardo Castro', '99877332645', 'Manicure', '2024-04-25', '14:00:00'),
-(89, 'Valdeni de Oliveira', '8491337267', 'Barbeiro', '2024-04-27', '12:00:00');
+INSERT INTO `cliente` (`id`, `Nome`, `Telefone`, `Servico`, `Dia`, `Horario`, `Senha`) VALUES
+(90, 'Catia Lima', '99877332645', 'Manicure', '2024-04-24', '13:30:00', 'Zilene13#'),
+(91, 'Bruna', '8456952315', 'Cabeleireiro', '2024-08-09', '12:00:00', 'bshcvdshcvhd');
 
 --
 -- Índices para tabelas despejadas
@@ -65,7 +63,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
