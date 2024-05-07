@@ -11,6 +11,7 @@ if(mysqli_num_rows($result) > 0) {
                 background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
                 background-size: cover;
                 background-position: center;
+                font-family: 'Great Vibes', cursive;
             }
             .h2{
                 background-color: #008000;
@@ -78,17 +79,18 @@ if(mysqli_num_rows($result) > 0) {
                 background-color:#8FBC8F; 
             }
         </style>";
-        echo "<h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Agendamentos</h2>";
+    echo "<h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Agendamentos</h2>";
 
     echo "<div class='table-container'>";
     echo "<table class='styled-table'>";
-    echo "<thead><tr><th>Nome</th><th>Serviço</th><th>Dia</th><th>Horário</th><th>Ações</th></tr></thead>";
+    echo "<thead><tr><th>ID</th><th>Nome</th><th>Serviço</th><th>Dia</th><th>Horário</th><th>Ações</th></tr></thead>";
     echo "<tbody>";
     $count = 0;
     while($row = mysqli_fetch_assoc($result)) {
         $count++;
         $color_class = $count % 2 == 0 ? 'even-row' : 'odd-row';
         echo "<tr class='$color_class'>";
+        echo "<td>".$row['id']."</td>";
         echo "<td>".$row['Nome']."</td>";
         echo "<td>".$row['Servico']."</td>";
         echo "<td>".date('d/m/Y', strtotime($row['Dia']))."</td>";
@@ -102,6 +104,7 @@ if(mysqli_num_rows($result) > 0) {
     echo "<a class='return-btn' href='index.php'>Voltar para o início</a>";
     echo "<a class='return-btn' href='agend.php'>Voltar, para agendar um novo horário</a>";
     echo "</div>";
+    
 } else {
     echo "<p>Nenhum agendamento encontrado.</p>";
 }
