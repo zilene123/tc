@@ -10,7 +10,8 @@ if(isset($_POST['submit'])) {
     $Servico = $_POST['Servico'];
     $Dia = $_POST['Dia'];
     $Horario = $_POST['Horario'];
-    $Senha = $_POST['Senha']; 
+    $Senha = $_POST['Senha'];
+    $Email = $_POST['Email'];
 
    
     $check_query = "SELECT * FROM cliente WHERE Servico='$Servico' AND Dia='$Dia' AND Horario='$Horario'";
@@ -21,7 +22,7 @@ if(isset($_POST['submit'])) {
         echo "<script>alert('Este horário já está agendado para o serviço selecionado. Por favor, escolha outro horário.');</script>";
     } else {
        
-        $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha')";
+        $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha, Email) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha', '$Email')";
         if(mysqli_query($conexao, $insert_query)) {
            
             echo "<script>window.location.href = 'most.php';</script>";
@@ -102,7 +103,7 @@ if(isset($_POST['submit'])) {
         .box {
             color: white;
             position: absolute;
-            top: 60%;
+            top: 85%;
             left: 40%;
             transform: translate(-45%, -45%);
             background-color: rgba(0, 128, 0, 0.6);
@@ -230,7 +231,6 @@ if(isset($_POST['submit'])) {
             </nav>
         </div>
     </header>
-  
     <div class="box">
         <form action="agend.php" method="post">
             <fieldset>
@@ -240,13 +240,17 @@ if(isset($_POST['submit'])) {
                     <input type="text" name="Nome" id="Nome" class="inputUser" required>
                     <label for="Nome" class="labelInput">Nome completo</label>
                 </div>
-                <br><br>
+                <br>
                 <div class="inputBox">
                     <input type="Tel" name="Telefone" id="Telefone" class="inputUser" required>
                     <label for="Telefone" class="labelInput">Telefone</label>
                 </div>
                 <br>
-
+                <div class="inputBox">
+                <input type="email" name="Email" id="Email" class="inputUser" required>
+                <label for="Email" class="labelInput">Email</label>
+               </div>
+               
                 <label for="Servico">Serviços:</label>
                 <select id="Servico" name="Servico" required>
                     <option value="">Escolha o serviço</option>
@@ -258,7 +262,7 @@ if(isset($_POST['submit'])) {
                 <br></br>
                 <label for="Dia">Dia:</label>
                 <input type="date" id="Dia" name="Dia" required>
-                <br><br></br>
+                <br><br>
                 <label for="Horario">Horário:</label>
                 <input type="time" id="Horario" name="Horario" required>
                 <br></br>
@@ -282,6 +286,7 @@ if(isset($_POST['submit'])) {
                         }
                     }
                 </script>
+                <h4>Essa senha é para futuras modificações suas como editar ou cancelar o agendamento.Então escolha uma senha que você irá lembrar com facilidade e segura também.</h4>
                 <br></br>
                 <input type="submit" name="submit" id="submit">
                 <a href="most.php" class="btn">Ver horários agendados...</a>
