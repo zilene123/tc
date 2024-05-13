@@ -4,7 +4,6 @@ if(isset($_POST['submit'])) {
     
     include_once('config.php');
 
-    
     $Nome = $_POST['Nome'];
     $Telefone = $_POST['Telefone'];
     $Servico = $_POST['Servico'];
@@ -13,26 +12,39 @@ if(isset($_POST['submit'])) {
     $Senha = $_POST['Senha'];
     $Email = $_POST['Email'];
 
-   
-    $check_query = "SELECT * FROM cliente WHERE Servico='$Servico' AND Dia='$Dia' AND Horario='$Horario'";
-    $check_result = mysqli_query($conexao, $check_query);
+    // Verifica se o dia selecionado é válido (apenas para o dia seguinte ou seguintes)
+    $hoje = strtotime('today');
+    $data_selecionada = strtotime($Dia);
 
-    if(mysqli_num_rows($check_result) > 0) {
-       
-        echo "<script>alert('Este horário já está agendado para o serviço selecionado. Por favor, escolha outro horário.');</script>";
+    if ($data_selecionada < $hoje) {
+        echo "<script>alert('Desculpe, só aceitamos agendamentos para o dia seguinte ou seguintes. Por favor, escolha outra data.');</script>";
     } else {
-       
-        $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha, Email) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha', '$Email')";
-        if(mysqli_query($conexao, $insert_query)) {
-           
-            echo "<script>window.location.href = 'most.php';</script>";
+        // Verifica se o horário está dentro do intervalo permitido (das 8h às 18h)
+        $horario_inicio = strtotime("08:00:00");
+        $horario_fim = strtotime("18:00:00");
+        $horario_agendado = strtotime($Horario);
+        // Se não estiver dentro do horario
+        if ($horario_agendado < $horario_inicio || $horario_agendado > $horario_fim) {
+            echo "<script>alert('Desculpe, só aceitamos agendamentos entre 8h e 18h. Por favor, escolha outro horário.');</script>";
         } else {
-           
-            echo "<script>alert('Ocorreu um erro ao agendar o horário. Por favor, tente novamente.');</script>";
+            $check_query = "SELECT * FROM cliente WHERE Servico='$Servico' AND Dia='$Dia' AND Horario='$Horario'";
+            $check_result = mysqli_query($conexao, $check_query);
+
+            if(mysqli_num_rows($check_result) > 0) {
+                echo "<script>alert('Este horário já está agendado para o serviço selecionado. Por favor, escolha outro horário.');</script>";
+            } else {
+                $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha, Email) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha', '$Email')";
+                if(mysqli_query($conexao, $insert_query)) {
+                    echo "<script>window.location.href = 'most.php';</script>";
+                } else {
+                    echo "<script>alert('Ocorreu um erro ao agendar o horário. Por favor, tente novamente.');</script>";
+                }
+            }
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -226,6 +238,7 @@ if(isset($_POST['submit'])) {
                     <li><a href="index.php">Início</a></li>
                     <li><a href="agend.php">Agendar</a></li>
                     <li><a href="catalago.php">Catálogo</a></li>
+                    <li><a href="login_fun.php">Funcionario</a></li>
                     <li><a href="contato.php">Contato</a></li>
                 </ul>
             </nav>
