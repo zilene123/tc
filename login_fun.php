@@ -1,23 +1,25 @@
 <?php
+// Senha definida diretamente no código
+$senha_definida = "71677413450"; // Senha definida
+
 if(isset($_POST['submit'])) {
-    include_once('config.php');
-    
-    $cpf = $_POST['cpf'];
-    $senha = $_POST['Senha'];
+    // Verifica se a senha informada está correta
+    $senha_informada = $_POST['Senha'];
 
-    $sql = "SELECT * FROM funcionario WHERE Cpf = '$cpf' AND Senha = '$senha'";
-    $result = $conexao->query($sql);
-
-    if ($result->num_rows > 0) {
+    if ($senha_informada == $senha_definida) {
         // Redireciona para a página most_fun.php
         header("Location: most_fun.php");
         exit();
     } else {
-        // Se não houver funcionário correspondente, exibe uma mensagem de erro e redireciona de volta para a página de login
-        echo "CPF ou senha incorretos!";
-        header("Refresh: 3; login_fun.php"); // Redireciona de volta para a página de login após 3 segundos
-        exit();
+        // Se a senha estiver incorreta, exibe uma mensagem de erro
+        echo "Senha incorreta!";
     }
+}
+
+if(isset($_POST['forgot_submit'])) {
+    // Aqui você pode adicionar a lógica para enviar a senha para o e-mail fornecido
+    // Por enquanto, vamos apenas exibir uma mensagem informando que a senha será enviada para o e-mail
+    echo "A senha será enviada para o e-mail fornecido.";
 }
 ?>
 
@@ -220,29 +222,22 @@ if(isset($_POST['submit'])) {
             <h1>Salão de Beleza</h1>
             <nav>
                 <ul>
-                    <li><a href="index.php">Início</a></li>
-                    <li><a href="agend.php">Agendar</a></li>
-                    <li><a href="catalago.php">Catálogo</a></li>
                     <li><a href="login_fun.php">Funcionario</a></li>
-                    <li><a href="contato.php">Contato</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <div class="box">
-        <form action="agend.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <fieldset>
                 <legend><b>Login</b></legend>
                 <br>
-                <div class="inputBox">
-                    <input type="text" name="cpf" id="cpf" class="inputUser" required>
-                    <label for="cpf" class="labelInput">Cpf</label>
-                </div>
-                <br>
+                <!-- Removido campo de CPF -->
                 <div class="inputBox">
                     <input type="password" name="Senha" id="Senha" class="inputUser" required>
                     <label for="Senha" class="labelInput">Senha</label>
                     
+                    <!-- Ícone para alternar visibilidade da senha -->
                     <img src="https://cdn-icons-png.flaticon.com/512/13/13523.png" class="password-toggle-icon" onclick="togglePasswordVisibility()" alt="Mostrar Senha">
                 </div>
                 <script>
@@ -261,8 +256,8 @@ if(isset($_POST['submit'])) {
                 </script>
                 <br>
                 <input type="submit" name="submit" id="submit">
-                <a href="most.php" class="btn">Cadastrar</a>
-            </fieldset>
+                <!-- Link para solicitar recuperação de senha por e-mail -->
+                </fieldset>
         </form>
     </div>
 
