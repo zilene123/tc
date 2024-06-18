@@ -133,7 +133,7 @@
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="agend.php">Agendar</a></li>
-                    <li><a href="catalago.php">Catálogo</a></li>
+                    <li><a href="catalogo.php">Catálogo</a></li>
                     <li><a href="contato.php">Contato</a></li>
                 </ul>
             </nav>
