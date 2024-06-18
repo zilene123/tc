@@ -61,7 +61,7 @@
     
     nav ul li a:hover {
             background-color: #004d00;
-        }
+    }
     fieldset {
         margin: 10px;
         border: 3px solid Green;
@@ -85,12 +85,12 @@
 
             <h1>Salão de Beleza</h1>
             <nav>
-                <ul>
+            <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="agend.php">Agendar</a></li>
-                    <li><a href="catalago.php">Catálogo</a></li>
+                    <li><a href="catalogo.php">Catálogo</a></li>
                     <li><a href="contato.php">Contato</a></li>
-                </ul>
+            </ul>
             </nav>
         </div>
     </header>
@@ -98,8 +98,7 @@
     <div class="container">
     <fieldset>    
     <legend><b>Entre em contato</b></legend>
-    <br>
-        
+    <br> 
         <p>Entre em contato conosco pelo telefone ou visite-nos em nosso endereço.</p>
         <p><strong>Telefone:</strong> (84) 9195-2610</p>
         <p><strong>Endereço:</strong> Rua São Paulo, 1110 - Bela Parnamirim</p>
