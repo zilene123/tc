@@ -1,10 +1,17 @@
 <?php
-
 include_once('config.php');
 
 $query = "SELECT * FROM cliente";
 
 $result = mysqli_query($conexao, $query);
+
+if(isset($_POST['data_inicio']) && isset($_POST['data_fim'])){
+    $data_inicio = $_POST['data_inicio'];
+    $data_fim = $_POST['data_fim'];
+    $query .= " WHERE Dia BETWEEN '$data_inicio' AND '$data_fim'";
+    $result = mysqli_query($conexao, $query);
+}
+
 if(mysqli_num_rows($result) > 0) {
     echo "<style>
             body {
@@ -78,12 +85,25 @@ if(mysqli_num_rows($result) > 0) {
             .return-btn:hover {
                 background-color:#8FBC8F; 
             }
+            .filter-form {
+                background-color: #008000; /* Cor igual à do h2 */
+                padding: 10px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
         </style>";
     echo "<h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Agendamentos</h2>";
+    echo "<form action='".$_SERVER['PHP_SELF']."' method='post' class='filter-form'>";
+    echo "<label for='data_inicio'>Data Inicial:</label>";
+    echo "<input type='date' id='data_inicio' name='data_inicio'>";
+    echo "<label for='data_fim'>Data Final:</label>";
+    echo "<input type='date' id='data_fim' name='data_fim'>";
+    echo "<button type='submit' class='return-btn'>Filtrar</button>";
+    echo "</form>";
 
     echo "<div class='table-container'>";
     echo "<table class='styled-table'>";
-    echo "<thead><tr><th>ID</th><th>Nome</th><th>Serviço</th><th>Dia</th><th>Horário</th><th>Ações</th></tr></thead>";
+    echo "<thead><tr><th>ID</th><th>Nome</th><th>Serviço</th><th>Dia</th><th>Horário</th><th>Valor</th><th>Descrição</th><th>Status de Atendimento</th><th>Ações</th></tr></thead>";
     echo "<tbody>";
     $count = 0;
     while($row = mysqli_fetch_assoc($result)) {
@@ -95,18 +115,21 @@ if(mysqli_num_rows($result) > 0) {
         echo "<td>".$row['Servico']."</td>";
         echo "<td>".date('d/m/Y', strtotime($row['Dia']))."</td>";
         echo "<td>".$row['Horario']."</td>";
-        echo "<td><a class='edit-btn' href='senha_edit.php?id=".$row['id']."'>Editar</a><a class='delete-btn' href='senha_cancelar.php?id=".$row['id']."'>Cancelar</a></td>";
+        echo "<td>".$row['Valor']."</td>";
+        echo "<td>".$row['Descricao']."</td>";
+        echo "<td>".$row['Status_Atendimento']."</td>";
+        echo "<td><a class='edit-btn' href='editar_fun.php?id=".$row['id']."'>Editar</a></td>";
         echo "</tr>";
     }
     echo "</tbody>";
     echo "</table>";
     
-    echo "<a class='return-btn' href='index.php'>Voltar para o início</a>";
-    echo "<a class='return-btn' href='agend.php'>Voltar, para agendar um novo horário</a>";
-    echo "</div>";
+    echo "<br><a class='return-btn' href='login_fun.php'>Sair</a>";
+    echo "<br></div>";
     
 } else {
-    echo "<p>Nenhum agendamento encontrado.</p>";
+    echo "<p>Não foram encontrados agendamentos para o período selecionado.</p>";
 }
+
 mysqli_close($conexao);
 ?>
