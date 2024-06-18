@@ -1,7 +1,5 @@
 <?php
-
 if(isset($_POST['submit'])) {
-    
     include_once('config.php');
 
     $Nome = $_POST['Nome'];
@@ -23,7 +21,7 @@ if(isset($_POST['submit'])) {
         $horario_inicio = strtotime("08:00:00");
         $horario_fim = strtotime("18:00:00");
         $horario_agendado = strtotime($Horario);
-        // Se não estiver dentro do horario
+        // Se não estiver dentro do horário
         if ($horario_agendado < $horario_inicio || $horario_agendado > $horario_fim) {
             echo "<script>alert('Desculpe, só aceitamos agendamentos entre 8h e 18h. Por favor, escolha outro horário.');</script>";
         } else {
@@ -35,7 +33,8 @@ if(isset($_POST['submit'])) {
             } else {
                 $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha, Email) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha', '$Email')";
                 if(mysqli_query($conexao, $insert_query)) {
-                    echo "<script>window.location.href = 'most.php';</script>";
+                    header("Location: most.php"); // Redireciona para most.php após o agendamento ser salvo no banco de dados
+                    exit(); // Encerra o script para evitar execução adicional
                 } else {
                     echo "<script>alert('Ocorreu um erro ao agendar o horário. Por favor, tente novamente.');</script>";
                 }
@@ -121,7 +120,7 @@ if(isset($_POST['submit'])) {
             background-color: rgba(0, 128, 0, 0.6);
             padding: 30px;
             border-radius: 15px;
-            width: 60%;
+            width: 80%;
         }
 
         fieldset {
@@ -226,7 +225,9 @@ if(isset($_POST['submit'])) {
         .password-toggle-icon:hover {
             transform: translateY(-50%) scale(1.2); 
         }
-
+        .green-text {
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -237,8 +238,7 @@ if(isset($_POST['submit'])) {
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="agend.php">Agendar</a></li>
-                    <li><a href="catalago.php">Catálogo</a></li>
-                    <li><a href="login_fun.php">Funcionario</a></li>
+                    <li><a href="catalogo.php">Catálogo</a></li>
                     <li><a href="contato.php">Contato</a></li>
                 </ul>
             </nav>
@@ -250,55 +250,56 @@ if(isset($_POST['submit'])) {
                 <legend><b>Fórmulário de agendamentos</b></legend>
                 <br>
                 <div class="inputBox">
-                    <input type="text" name="Nome" id="Nome" class="inputUser" required>
-                    <label for="Nome" class="labelInput">Nome completo</label>
-                </div>
-                <br>
                 <div class="inputBox">
-                    <input type="Tel" name="Telefone" id="Telefone" class="inputUser" required>
-                    <label for="Telefone" class="labelInput">Telefone</label>
-                </div>
-                <br>
-                <div class="inputBox">
-                <input type="email" name="Email" id="Email" class="inputUser" required>
-                <label for="Email" class="labelInput">Email</label>
-               </div>
-               
-                <label for="Servico">Serviços:</label>
-                <select id="Servico" name="Servico" required>
-                    <option value="">Escolha o serviço</option>
-                    <option value="Barbeiro">Barbeiro</option>
-                    <option value="Cabeleireiro">Cabeleireiro</option>
-                    <option value="Manicure">Manicure</option>
-                    <option value="Spa">Spa</option>
-                </select>
-                <br></br>
-                <label for="Dia">Dia:</label>
-                <input type="date" id="Dia" name="Dia" required>
-                <br><br>
-                <label for="Horario">Horário:</label>
-                <input type="time" id="Horario" name="Horario" required>
-                <br></br>
-                <div class="inputBox">
-                    <input type="password" name="Senha" id="Senha" class="inputUser" required>
-                    <label for="Senha" class="labelInput">Senha</label>
-                    
-                    <img src="https://cdn-icons-png.flaticon.com/512/13/13523.png" class="password-toggle-icon" onclick="togglePasswordVisibility()" alt="Mostrar Senha">
-                </div>
-                <script>
-                    function togglePasswordVisibility() {
-                        var passwordInput = document.getElementById("Senha");
-                        var passwordIcon = document.querySelector(".password-toggle-icon");
+            <input type="text" name="Nome" id="Nome" class="inputUser" required placeholder="Ex: Maria Silva">
+            <label for="Nome" class="labelInput">Nome completo</label>
+        </div>
+        <br>
+        <div class="inputBox">
+            <input type="tel" name="Telefone" id="Telefone" class="inputUser" required placeholder="Ex: 84 987337267">
+            <label for="Telefone" class="labelInput">Telefone</label>
+        </div>
+        <br>
+        <div class="inputBox">
+            <input type="email" name="Email" id="Email" class="inputUser" required placeholder="Ex: mariasilva@gmail.com">
+            <label for="Email" class="labelInput">Email</label>
+        </div>
+        
+        <label for="Servico">Serviços:</label>
+        <select id="Servico" name="Servico" required>
+            <option value="">Escolha o serviço</option>
+            <option value="Barbeiro">Barbeiro</option>
+            <option value="Cabeleireiro">Cabeleireiro</option>
+            <option value="Manicure">Manicure</option>
+            <option value="Spa">Spa</option>
+        </select>
+        <br><br>
+        <label for="Dia">Dia:</label>
+        <input type="date" id="Dia" name="Dia" required>
+        <br><br>
+        <label for="Horario">Horário:</label>
+        <input type="time" id="Horario" name="Horario" required>
+        <br><br>
+        <div class="inputBox">
+            <input type="password" name="Senha" id="Senha" class="inputUser" required>
+            <label for="Senha" class="labelInput">Senha</label>
+            
+            <img src="https://cdn-icons-png.flaticon.com/512/13/13523.png" class="password-toggle-icon" onclick="togglePasswordVisibility()" alt="Mostrar Senha">
+        </div>
+        <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById("Senha");
+                var passwordIcon = document.querySelector(".password-toggle-icon");
 
-                        if (passwordInput.type === "password") {
-                            passwordInput.type = "text";
-                            passwordIcon.src = "https://cdn-icons-png.flaticon.com/512/125/125771.png"; // Altere o ícone para "olho fechado"
-                        } else {
-                            passwordInput.type = "password";
-                            passwordIcon.src = "https://cdn-icons-png.flaticon.com/512/13/13523.png"; // Altere o ícone para "olho aberto"
-                        }
-                    }
-                </script>
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    passwordIcon.src = "https://cdn-icons-png.flaticon.com/512/125/125771.png"; // Altere o ícone para "olho fechado"
+                } else {
+                    passwordInput.type = "password";
+                    passwordIcon.src = "https://cdn-icons-png.flaticon.com/512/13/13523.png"; // Altere o ícone para "olho aberto"
+                }
+            }
+        </script>
                 <h4>Essa senha é para futuras modificações suas como editar ou cancelar o agendamento.Então escolha uma senha que você irá lembrar com facilidade e segura também.</h4>
                 <br></br>
                 <input type="submit" name="submit" id="submit">
