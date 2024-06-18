@@ -1,47 +1,47 @@
 <?php
-// Senha definida diretamente no código
-$senha_definida = "71677413450"; // Senha definida
+include_once('config.php');
 
-if(isset($_POST['submit'])) {
-    // Verifica se a senha informada está correta
-    $senha_informada = $_POST['Senha'];
+$erro = "";
 
-    if ($senha_informada == $senha_definida) {
-        // Redireciona para a página most_fun.php
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize e validar os valores recebidos do formulário
+    $cpf = mysqli_real_escape_string($conexao, $_POST['Cpf']);
+    $senha = mysqli_real_escape_string($conexao, $_POST['Senha']);
+
+    // Query para verificar se o CPF e a senha correspondem a um registro no banco de dados
+    $query = "SELECT * FROM funcionarios WHERE Cpf = '$cpf' AND Senha = '$senha'";
+    
+    $result = mysqli_query($conexao, $query);
+
+    if(mysqli_num_rows($result) == 1) {
+        // Se o CPF e a senha correspondem, redireciona para a página de funcionários
         header("Location: most_fun.php");
         exit();
     } else {
-        // Se a senha estiver incorreta, exibe uma mensagem de erro
-        echo "Senha incorreta!";
+        // Se o CPF ou a senha estiverem incorretos, exibe uma mensagem de erro
+        echo "<script>alert('CPF ou senha inválidos');</script>";
+        echo "<script>window.location = 'login_fun.php';</script>"; 
     }
-}
-
-if(isset($_POST['forgot_submit'])) {
-    // Aqui você pode adicionar a lógica para enviar a senha para o e-mail fornecido
-    // Por enquanto, vamos apenas exibir uma mensagem informando que a senha será enviada para o e-mail
-    echo "A senha será enviada para o e-mail fornecido.";
 }
 ?>
 
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 </head>
-<style>
-     * {
+<style>* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         body {
@@ -54,11 +54,13 @@ if(isset($_POST['forgot_submit'])) {
             padding-top: 0;
             padding-bottom: 20px; 
         }
+
         .cabeçario {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
         header {
             background-color:#228B22;
             color: #fff;
@@ -83,49 +85,45 @@ if(isset($_POST['forgot_submit'])) {
             color: #fff;
             text-decoration: none;
         }
-        
+
         nav ul li a:hover {
             background-color: #004d00;
         }
 
-        h2 {
-            margin: 20px 0; 
-            color: #ffffff;
-            text-align: center; 
-        }
         .box {
             color: white;
             position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-45%, -45%);
+            top: 50%;
+            left: 40%;
+            transform: translate(-40%, -45%);
             background-color: rgba(0, 128, 0, 0.6);
             padding: 30px;
             border-radius: 15px;
-            width: 60%;
+            width: 80%;
+            max-width: 300px; /* Ajuste o máximo de largura conforme necessário */
+            margin: 50px auto; /* Centralize vertical e horizontalmente */
         }
 
         fieldset {
-        margin: 10px;
-        border: 3px solid Green;
-        border-radius: 10px;
-        padding: 0px;
-       }
+            border: 3px solid Green;
+            border-radius: 20px;
+            padding: 30px;
+        }
 
         legend {
-            border: 1px solid Green;
-            padding: 10px;
+            border: 10px solid Green;
+            padding: 0px;
             text-align: center;
             background-color: Green;
             border-radius: 8px;
             color: white;
         }
-
+        /*letras do formulario*/
         .inputBox {
             position: relative;
             margin-bottom: 20px;
         }
-
+        /*linha do formulario*/
         .inputUser {
             background: none;
             border: none;
@@ -137,7 +135,7 @@ if(isset($_POST['forgot_submit'])) {
             padding: 5px;
             letter-spacing: 2px;
         }
-
+        /*letras do formulario*/
         .labelInput {
             position: absolute;
             top: 0px;
@@ -146,13 +144,14 @@ if(isset($_POST['forgot_submit'])) {
             transition: .5s;
             color: white;
         }
-        /* o detalhe das letras subirem no  formulario*/
+
         .inputUser:focus ~ .labelInput,
         .inputUser:valid ~ .labelInput {
             top: -20px;
             font-size: 12px;
             color: while;
         }
+
         #submit {
             background-image: linear-gradient(to right, rgb(0, 80, 0), rgb(0, 128, 0));
             width: 100%;
@@ -168,6 +167,7 @@ if(isset($_POST['forgot_submit'])) {
         #submit:hover {
             background-image: linear-gradient(to right, rgb(0, 60, 0), rgb(0, 100, 0));
         }
+
         .btn {
             display: inline-block;
             background-image: linear-gradient(to right, rgb(0, 80, 0), rgb(0, 128, 0));
@@ -185,13 +185,7 @@ if(isset($_POST['forgot_submit'])) {
         .btn:hover {
             background-image: linear-gradient(to right, rgb(0, 60, 0), rgb(0, 100, 0));
         }
-        .password-toggle-icon {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
+
         .password-toggle-icon {
             position: absolute;
             top: 50%;
@@ -203,41 +197,36 @@ if(isset($_POST['forgot_submit'])) {
             fill: #fff; 
             transition: transform 0.3s ease; 
         }
+
         .password-toggle-icon:hover {
             transform: translateY(-50%) scale(1.2); 
         }
-    @media only screen and (max-width: 600px) {
-        .box {
-            width: 80%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    }
-
 </style>
 <body>
-   <div class="container">
     <header>
         <div class="cabeçario">
             <h1>Salão de Beleza</h1>
             <nav>
                 <ul>
                     <li><a href="login_fun.php">Funcionario</a></li>
+                    <li><a href="funcionarios.php">Contas</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <div class="box">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-            <fieldset>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <fieldset>
                 <legend><b>Login</b></legend>
                 <br>
-                <!-- Removido campo de CPF -->
+                <div class="inputBox">
+                    <input type="text" name="Cpf" id="Cpf" class="inputUser" required>
+                    <label for="Cpf" class="labelInput">Cpf</label>
+                </div>
+                <br>
                 <div class="inputBox">
                     <input type="password" name="Senha" id="Senha" class="inputUser" required>
                     <label for="Senha" class="labelInput">Senha</label>
-                    
-                    <!-- Ícone para alternar visibilidade da senha -->
                     <img src="https://cdn-icons-png.flaticon.com/512/13/13523.png" class="password-toggle-icon" onclick="togglePasswordVisibility()" alt="Mostrar Senha">
                 </div>
                 <script>
@@ -255,12 +244,12 @@ if(isset($_POST['forgot_submit'])) {
                     }
                 </script>
                 <br>
-                <input type="submit" name="submit" id="submit">
-                <!-- Link para solicitar recuperação de senha por e-mail -->
-                </fieldset>
-        </form>
-    </div>
 
-
+        <a href="senha_nova_fun.php">Esqueceu a Senha?</a><br></br>
+        <a href="cadastro_fun.php" class="btn">Não possuo cadastro</a>
+        
+        <input type="submit" id="submit" value="Confirmar">
+        </fieldset>
+    </form>
 </body>
 </html>
