@@ -15,20 +15,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $senha = $_POST['Senha'];
 
         // Verifica se o CPF já está cadastrado no banco de dados
-        $stmt_check = $conexao->prepare("SELECT Cpf FROM funcionarios WHERE Cpf = ?");
-        $stmt_check->bind_param("s", $cpf);
-        $stmt_check->execute();
-        $stmt_check->store_result();
+        $conf = $conexao->prepare("SELECT Cpf FROM funcionarios WHERE Cpf = ?");
+        $conf->bind_param("s", $cpf);
+        $conf->execute();
+        $conf->store_result();
 
-        if ($stmt_check->num_rows > 0) {
+        if ($conf->num_rows > 0) {
             echo "<script>alert('Este CPF já está cadastrado. Por favor, insira um CPF diferente.');</script>";
         } else {
             // Prepara e executa a consulta SQL para inserir os dados na tabela funcionarios
-            $stmt = $conexao->prepare("INSERT INTO funcionarios (Nome, Cpf, Telefone, Email, Senha) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $nome, $cpf, $telefone, $email, $senha);
+            $prepara = $conexao->prepare("INSERT INTO funcionarios (Nome, Cpf, Telefone, Email, Senha) VALUES (?, ?, ?, ?, ?)");
+            $prepara->bind_param("sssss", $nome, $cpf, $telefone, $email, $senha);
             
             // Executa a consulta preparada
-            if ($stmt->execute()) {
+            if ($prepara->execute()) {
                 // Redireciona para most_fun.php
                 header("Location: login_fun.php");
                 exit(); // Para garantir que o código seguinte não seja executado
@@ -37,11 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             
             // Fecha a declaração
-            $stmt->close();
+            $prepara->close();
         }
 
         // Fecha a declaração de verificação
-        $stmt_check->close();
+        $conf->close();
     } else {
         echo "Todos os campos são obrigatórios.";
     }
