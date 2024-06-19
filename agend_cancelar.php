@@ -1,18 +1,20 @@
 <?php
+// Inclui o arquivo de configuração que provavelmente contém a conexão com o banco de dados
 include_once('config.php');
 
 $erro = "";
 
+// Verifica se o método da requisição é POST
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize e validar os valores recebidos do formulário
     $id = mysqli_real_escape_string($conexao, $_POST['id']);
     $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
-    // Query para verificar se o ID e a senha correspondem a um registro no banco de dados
+     // Monta a query SQL para verificar se o ID e a senha correspondem a um registro no banco de dados
     $query = "SELECT * FROM cliente WHERE id = '$id' AND Senha = '$senha'";
     
     $result = mysqli_query($conexao, $query);
-
+    // Verifica se retornou exatamente um registro
     if(mysqli_num_rows($result) == 1) {
         // Se a senha e o ID correspondem, redireciona para a página de edição
         header("Location: excluir.php?id=$id");
@@ -26,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
