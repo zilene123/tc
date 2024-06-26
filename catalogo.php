@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalágo</title>
+    <title>Catálogo</title>
     <style>
         * {
             margin: 0;
@@ -140,7 +140,7 @@
         </div>
     </header>
     <br>
-        <h2>Catálago</h2><br>
+        <h2>Catálogo</h2><br>
                
         <button class="botao" onclick="window.location.href='#Cabeleireiro'">Cabeleireiro</button>
         <button class="botao" onclick="window.location.href='#Barbeiro'">Barbeiro</button>
@@ -224,7 +224,7 @@
             <div class="overlay"></div>
         </div>
         <div class="album-item">
-            <img src="https://aaronturatv.com.br/wp-content/uploads/2024/02/corte-americano.jpeg" alt="Foto 6">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgq-OvNMCH-4QxKieN6whUylovtXwiweS4BEIrxqBTJZ8-1ry0XOGDevAdEmwzQ1n7NBoDeYILjE-iThUa3vtbITwk84glwHxSwq5YwA6mVOpr7EOc1ToNWHWhS_x4rt3U3ZNaILb5p_pk/s1600/cortes-de-cabelo-masculino-2020-franja+%25287%2529.jpg" alt="Foto 6">
             <div class="overlay"></div>
         </div>
         <div class="album-item">
@@ -245,7 +245,7 @@
         
     <div class="album">
         <div class="album-item">
-            <img src="https://nati.com.br/wp-content/uploads/2022/08/Gold-and-milky-white-nails-compressed-1.jpg" alt="Foto 1">
+            <i1mg src="https://nati.com.br/wp-content/uploads/2022/08/Gold-and-milky-white-nails-compressed-1.jpg" alt="Foto 1">
             <div class="overlay"></div>
         </div>
         <div class="album-item">
