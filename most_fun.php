@@ -1,3 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendados</title>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Great Vibes', cursive;
+        background-color: #228B22;
+        background-image: url('https://i.pinimg.com/564x/45/23/05/4523054413af343e7f882148d945c5c9.jpg');
+        background-size: cover;
+        background-position: center; 
+        padding-top: 0; 
+        padding-bottom: 20px;
+    }
+    .abeçario {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    }
+    .container{
+    max-width: 1200px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color:#fff;
+    border-radius: 20px;
+            
+    }
+    header {
+        background-color:#228B22;
+        color: #fff;
+        padding: 20px 10px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    nav ul {
+        list-style-type: none;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    nav ul li a:hover {
+            background-color: #004d00;
+    }
+</style>
+<body>
+    
+<header>
+        <div class="cabeçario">
+            <h1>Salão de Beleza</h1>
+            <nav>
+                <ul>
+                    <li><a href="login_fun.php">Funcionario</a></li>
+                    <li><a href="funcionarios.php">Contas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <br>
+</body>
+</html>
+
 <?php
 include_once('config.php');
 
@@ -92,7 +174,7 @@ if(mysqli_num_rows($result) > 0) {
                 margin-bottom: 20px;
             }
         </style>";
-    echo "<h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Agendamentos</h2>";
+    echo "<h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Agendamentos</h2><br>";
     echo "<form action='".$_SERVER['PHP_SELF']."' method='post' class='filter-form'>";
     echo "<label for='data_inicio'>Data Inicial:</label>";
     echo "<input type='date' id='data_inicio' name='data_inicio'>";
@@ -117,7 +199,7 @@ if(mysqli_num_rows($result) > 0) {
         echo "<td>".$row['Horario']."</td>";
         echo "<td>".$row['Valor']."</td>";
         echo "<td>".$row['Descricao']."</td>";
-        echo "<td>".$row['Status_Atendimento']."</td>";
+        echo "<td>".$row['status_atendimento_id']."</td>";
         echo "<td><a class='edit-btn' href='editar_fun.php?id=".$row['id']."'>Editar</a></td>";
         echo "</tr>";
     }
