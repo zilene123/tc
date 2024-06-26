@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .box {
             color: white;
             position: absolute;
-            top: 60%;
+            top: 65%;
             left: 40%;
             transform: translate(-45%, -45%);
             background-color: rgba(0, 128, 0, 0.6);
