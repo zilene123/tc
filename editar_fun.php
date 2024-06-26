@@ -15,7 +15,7 @@ if(isset($_GET['id'])) {
         $novo_status = mysqli_real_escape_string($conexao, $_POST['novo_status']);
 
         // Query para atualizar os campos no banco de dados
-        $query = "UPDATE cliente SET Valor='$novo_valor', Descricao='$nova_descricao', Status_Atendimento='$novo_status' WHERE id=$id";
+        $query = "UPDATE cliente SET Valor='$novo_valor', Descricao='$nova_descricao', status_atendimento_id='$novo_status' WHERE id=$id";
         $resultado = mysqli_query($conexao, $query);
 
         if($resultado) {
@@ -29,7 +29,7 @@ if(isset($_GET['id'])) {
     }
 
     // Query para obter os dados do agendamento com base no ID fornecido
-    $query_select = "SELECT Nome, Servico, Dia, Horario, Valor, Descricao, Status_Atendimento FROM cliente WHERE id = $id";
+    $query_select = "SELECT Nome, Servico, Dia, Horario, Valor, Descricao, status_atendimento_id FROM cliente WHERE id = $id";
     $resultado_select = mysqli_query($conexao, $query_select);
 
     if(mysqli_num_rows($resultado_select) == 1) {
@@ -208,15 +208,13 @@ if(isset($_GET['id'])) {
         <br>
         <div class="inputBox">
         <label for="novo_valor">Novo Valor:</label>
-        <input type="text" id="novo_valor" name="novo_valor" value="<?php echo $dados_agendamento['Valor']; ?>">
+        <input type="text" id="novo_valor" name="novo_valor" value="<?php echo $dados_agendamento['Valor']; ?>" required>
         </div>
         <label for="nova_descricao">Nova Descrição:</label>
-        <input type="text" id="nova_descricao" name="nova_descricao" value="<?php echo $dados_agendamento['Descricao']; ?>">
-        <label for="novo_status">Novo Status de Atendimento:</label>
-        <select id="novo_status" name="novo_status">
-            <option value="Atendido" <?php echo ($dados_agendamento['Status_Atendimento'] == 'Atendido') ? 'selected' : ''; ?>>Atendido</option>
-            <option value="Cliente Ausente" <?php echo ($dados_agendamento['Status_Atendimento'] == 'Cliente Ausente') ? 'selected' : ''; ?>>Cliente Ausente</option>
-        </select>
+        <input type="text" id="nova_descricao" name="nova_descricao" value="<?php echo $dados_agendamento['Descricao']; ?>" required>
+        <label for="novo_status">Status de atendimento:</label>
+        <input type="text" id="novo_status" name="novo_status" value="<?php echo $dados_agendamento['status_atendimento_id']; ?>" required>
+        
         <input type="submit" name="submit" id="submit" value="Salvar Alterações">
     </form>
 </body>
