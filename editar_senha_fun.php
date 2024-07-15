@@ -38,7 +38,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 mysqli_close($conexao);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,9 +58,8 @@ mysqli_close($conexao);
         }
 
         body {
-            font-family: 'Great Vibes', cursive;
-            background-color: #228B22;
-            background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
