@@ -19,14 +19,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // Se a senha ou o ID estiverem incorretos, exibe uma mensagem de erro
-        echo "<script>alert('ID ou senha do agendamento inválido');</script>";
-        echo "<script>window.location = 'senha_edit.php';</script>"; 
+        echo "<script>alert('Id ou senha do agendamento inválido');</script>";
+        echo "<script>window.location = 'agend_edit.php';</script>"; 
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,9 +46,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         body {
-            font-family: 'Great Vibes', cursive;
-            background-color: #228B22;
-            background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
@@ -220,7 +219,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="senha" class="labelInput">Senha:</label><br>
         <input type="password" id="senha" name="senha" class="inputUser" required><br>
     </div>
-        <a href="confimacao.php">Esqueceu a Senha?</a><br></br>
+        <a href="confimacao.php">Esqueceu a senha?</a><br></br>
         <input type="submit"  id="submit" value="Confirmar">
         </fieldset>
     </form>
