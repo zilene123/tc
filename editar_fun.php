@@ -66,9 +66,8 @@ if(isset($_GET['id'])) {
         }
 
         body {
-            font-family: 'Great Vibes', cursive;
-            background-color: #228B22;
-            background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
@@ -201,7 +200,6 @@ if(isset($_GET['id'])) {
 </head>
 <body>
 <div class="box">
-    <!-- Seu formulário de edição aqui -->
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id=" . $id; ?>" method="post">
         <fieldset>
         <legend><b>Alterações</b></legend>
