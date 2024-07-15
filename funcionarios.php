@@ -1,72 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funcionarios</title>
 </head>
 <style>
-      * {
+    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    }
+}
 
-    body {
-        font-family: 'Great Vibes', cursive;
-        background-color: #228B22;
-    }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
 
-    .cabeçario {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    
-    header {
-        background-color:#228B22;
-        color: #fff;
-        padding: 20px 0;
-    }
+/* Estilos do overlay de menu */
+#overlay-button {
+    position: absolute;
+    right: 2em;
+    top: 2em;
+    z-index: 1000;
+    cursor: pointer;
+}
 
-    header h1 {
-        margin: 0;
-        font-size: 24px;
-    }
+#overlay-button span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: transform 0.3s ease;
+}
 
-    nav ul {
-        list-style-type: none;
-    }
+#overlay-input {
+    display: none;
+}
 
-    nav ul li {
-        display: inline;
-        margin-right: 20px;
-    }
+#overlay-input:checked + #overlay-button span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
 
-    nav ul li a {
-        color: #fff;
-        text-decoration: none;
-    }
+#overlay-input:checked + #overlay-button span:nth-child(2) {
+    opacity: 0;
+}
 
-    nav ul li a:hover {
-        background-color: #004d00;
-    }
-    nav ul li a:hover {
-        background-color: #004d00;
-    }
+#overlay-input:checked + #overlay-button span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+#overlay.active {
+    transform: scale(1);
+}
+
+#overlay ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+#overlay ul li {
+    margin-bottom: 20px;
+}
+
+#overlay ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
+    transition: color 0.3s ease;
+}
+
+#overlay ul li a:hover {
+    color: #228B22;
+}
+
+/* Estilos do cabeçalho */
+header {
+    background-color:#fff;
+    color: #228B22;
+    padding: 20px 0;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cabecalho {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-left: 20px;
+
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #228B22;
+
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #228B22;
+}
+
+/* Estilos do formulário */
+.box {
+    color: white;
+    position: absolute;
+    top: 80%;
+    left: 40%;
+    transform: translate(-40%, -45%);
+    background-color: rgba(0, 128, 0, 0.6);
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+}
+
+.btn {
+    background-color: #fff;
+    color: #228B22;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #fff;
+}
+
+.footer {
+    background-color: #fff;
+    color: #228B22;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    margin-top: 50px;
+}
+
 </style>
 <body>
 <header>
-        <div class="cabeçario">
+        <div class="cabecalho">
             <h1>Salão de Beleza</h1>
+            <input type="checkbox" id="overlay-input">
+            <label for="overlay-input" id="overlay-button"><span></span><span></span><span></span></label>
             <nav>
-                <ul>
+            <ul>
                     <li><a href="login_fun.php">Funcionario</a></li>
-                    <li><a href="funcionarios.php">Contas</a></li><br>
+                    <li><a href="funcionarios.php">Contas</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+    <div id="overlay">
+                <ul>
+                    <li><a href="login_fun.php">Funcionario</a></li>
+                    <li><a href="funcionarios.php">Contas</a></li>
+                </ul>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlayInput = document.getElementById('overlay-input');
+        const overlayButton = document.getElementById('overlay-button');
+        const overlay = document.getElementById('overlay');
+
+        overlayButton.addEventListener('click', function() {
+            overlayInput.checked = !overlayInput.checked; // Alterna o estado do input checkbox
+            overlay.classList.toggle('active'); // Adiciona ou remove a classe 'active' do overlay
+        });
+    });
+</script>
 </body>
 </html>
 <?php
@@ -79,10 +220,9 @@ $result = mysqli_query($conexao, $query);
 if(mysqli_num_rows($result) > 0) {
     echo "<style>
             body {
-                background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
                 background-size: cover;
                 background-position: center;
-                font-family: 'Great Vibes', cursive;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
             .h2{
                 background-color: #008000;
@@ -152,7 +292,7 @@ if(mysqli_num_rows($result) > 0) {
                 
         </style>";
     
-    echo "<br><h2 style='background-color: #228B22; padding: 10px; color: #fff;'>Funcionarios</h2><br>";
+    echo "<br><h2 style='background-color: #fff; padding: 10px; color: #228B22;'>Funcionarios</h2><br>";
     
     echo "<table class='styled-table'>";
     echo "<thead><tr><th>ID</th><th>Nome</th><th>Ações</th></tr></thead>";
