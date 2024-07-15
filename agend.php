@@ -15,7 +15,7 @@ if(isset($_POST['submit'])) {
     $data_selecionada = strtotime($Dia);
 
     if ($data_selecionada < $hoje) {
-        echo "<script>alert('Desculpe, só aceitamos agendamentos para o dia seguinte ou seguintes. Por favor, escolha outra data.');</script>";
+        echo "<script>alert('Desculpe, escolha uma data varida.');</script>";
     } else {
         // Verifica se o horário está dentro do intervalo permitido (das 8h às 18h)
         $horario_inicio = strtotime("08:00:00");
@@ -29,7 +29,7 @@ if(isset($_POST['submit'])) {
             $check_result = mysqli_query($conexao, $check_query);
 
             if(mysqli_num_rows($check_result) > 0) {
-                echo "<script>alert('Este horário já está agendado para o serviço selecionado. Por favor, escolha outro horário.');</script>";
+                echo "<script>alert('Esse horário já está agendado para o serviço selecionado. Por favor, escolha outro horário.');</script>";
             } else {
                 $insert_query = "INSERT INTO cliente(Nome, Telefone, Servico, Dia, Horario, Senha, Email) VALUES ('$Nome', '$Telefone', '$Servico', '$Dia', '$Horario', '$Senha', '$Email')";
                 if(mysqli_query($conexao, $insert_query)) {
@@ -53,79 +53,179 @@ if(isset($_POST['submit'])) {
 
     <title>Agendamento - Salão de Beleza</title>
 <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* Reset CSS básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: 'Great Vibes', cursive;
-            background-color: #228B22;
-            background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
-            padding-top: 0;
-            padding-bottom: 20px; 
-        }
+/* Estilos do overlay de menu */
+#overlay-button {
+    position: absolute;
+    right: 2em;
+    top: 2em;
+    z-index: 1000;
+    cursor: pointer;
+}
 
+#overlay-button span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: transform 0.3s ease;
+}
 
-        .cabeçario {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        header {
-            background-color:#228B22;
-            color: #fff;
-            padding: 20px 0px;
-        }
+#overlay-input {
+    display: none;
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+#overlay-input:checked + #overlay-button span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
 
-        nav ul {
-            list-style-type: none;
-        }
+#overlay-input:checked + #overlay-button span:nth-child(2) {
+    opacity: 0;
+}
 
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
+#overlay-input:checked + #overlay-button span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
 
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        nav ul li a:hover {
-            background-color: #004d00;
-        }
-        /* Inicio da tabela */
-        .box {
-            color: white;
-            position: absolute;
-            top: 85%;
-            left: 40%;
-            transform: translate(-45%, -45%);
-            background-color: rgba(0, 128, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 80%;
-        }
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+#overlay.active {
+    transform: scale(1);
+}
+
+#overlay ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+#overlay ul li {
+    margin-bottom: 20px;
+}
+
+#overlay ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
+    transition: color 0.3s ease;
+}
+
+#overlay ul li a:hover {
+    color: #228B22;
+}
+
+/* Estilos do cabeçalho */
+header {
+    background-color:#fff;
+    color: #228B22;
+    padding: 20px 0;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cabecalho {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-left: 20px;
+
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #228B22;
+
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #228B22;
+}
+
+/* Estilos do formulário */
+.box {
+    color: white;
+    position: absolute;
+    top: 80%;
+    left: 40%;
+    transform: translate(-40%, -45%);
+    background-color: rgba(0, 128, 0, 0.6);
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+}
+
+.btn {
+    background-color: #fff;
+    color: #228B22;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #fff;
+}
+
+.footer {
+    background-color: #fff;
+    color: #228B22;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    margin-top: 50px;
+}
 
         fieldset {
             border: 3px solid Green;
-            border-radius: 10px;
+            border-radius: 20px;
             padding: 20px;
         }
 
@@ -157,9 +257,8 @@ if(isset($_POST['submit'])) {
 
         .labelInput {
             position: absolute;
-            top: 0px;
             left: 0px;
-            pointer-events: none;
+
             transition: .5s;
             color: white;
         }
@@ -208,7 +307,6 @@ if(isset($_POST['submit'])) {
             position: absolute;
             top: 50%;
             right: 10px;
-            transform: translateY(-50%);
             cursor: pointer;
         }
         .password-toggle-icon {
@@ -219,21 +317,60 @@ if(isset($_POST['submit'])) {
             cursor: pointer;
             width: 20px; 
             height: 20px; 
-            fill: #fff; 
             transition: transform 0.3s ease; 
         }
         .password-toggle-icon:hover {
             transform: translateY(-50%) scale(1.2); 
         }
-        .green-text {
-            color: green;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .cabecalho {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header h1 {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: #6c5ce7;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            #overlay-button {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="cabeçario">
+
+<header>
+        <div class="cabecalho">
             <h1>Salão de Beleza</h1>
+            <input type="checkbox" id="overlay-input">
+            <label for="overlay-input" id="overlay-button"><span></span><span></span><span></span></label>
             <nav>
                 <ul>
                     <li><a href="index.php">Início</a></li>
@@ -244,6 +381,29 @@ if(isset($_POST['submit'])) {
             </nav>
         </div>
     </header>
+    <div id="overlay">
+        <ul>
+            <li><a href="index.php">Início</a></li>
+            <li><a href="agend.php">Agendar</a></li>
+            <li><a href="catalogo.php">Catálogo</a></li>
+            <li><a href="contato.php">Contato</a></li>
+        </ul>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlayInput = document.getElementById('overlay-input');
+        const overlayButton = document.getElementById('overlay-button');
+        const overlay = document.getElementById('overlay');
+
+        overlayButton.addEventListener('click', function() {
+            overlayInput.checked = !overlayInput.checked; // Alterna o estado do input checkbox
+            overlay.classList.toggle('active'); // Adiciona ou remove a classe 'active' do overlay
+        });
+    });
+</script>
+
+
+           
     <div class="box">
         <form action="agend.php" method="post">
             <fieldset>
@@ -306,6 +466,7 @@ if(isset($_POST['submit'])) {
                 <a href="most.php" class="btn">Ver horários agendados...</a>
             </fieldset>
         </form>
+        
     </div>
 </body>
 </html>
