@@ -48,9 +48,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         body {
-            font-family: 'Great Vibes', cursive;
-            background-color: #228B22;
-            background-image: url('https://i0.wp.com/revistadecor.com.br/wp-content/uploads/2021/04/ALMA_36_R-scaled.jpg');
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
